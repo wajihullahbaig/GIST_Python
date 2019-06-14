@@ -287,7 +287,11 @@ def test(img_path):
     img = trim(img, 256)
     img.save('_temp.jpg')
 
-    print gist('_temp.jpg')
+    import time
+    ts = time.time()
+    g = gist('_temp.jpg',orientations,number_blocks,fc_prefilt,boundary_extension)
+    print ("processing time:",time.time() - ts)
+    print (g)
 
 
 if __name__ == '__main__':
