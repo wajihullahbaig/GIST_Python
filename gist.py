@@ -225,8 +225,8 @@ def _im_resize_crop(img, size, method = 'bilinear'):
     new_size = numpy.round((img.shape[0] * scaling, img.shape[1] * scaling)).astype(int)
     # TODO imresize just work with integers and we loose some perscion here
     img = scipy.misc.imresize(img, new_size, method, mode = 'F')
-    sr = numpy.floor((img.shape[0] - size[0]) / 2.)
-    sc = numpy.floor((img.shape[1] - size[1]) / 2.)
+    sr = numpy.floor((img.shape[0] - size[0]) / 2.).astype(numpy.int)
+    sc = numpy.floor((img.shape[1] - size[1]) / 2.).astype(numpy.int)
 
     img = img[sr : sr + size[0], sc : sc + size[1]]
     return img
@@ -253,8 +253,8 @@ def gist(image_path, orientations = (8,8,8,8), num_blocks = 4, fc_prefilt = 4,
     img = _im_resize_crop(img, image_size, 'bilinear')
     img = img - img.min()
     img =   255. * img / img.max()
-
-    gabor = create_gabor(orientations, image_size + 2 * boundary_extension)
+    img_size_boundary_extension = (image_size[0]+2*boundary_extension,image_size[1]+2*boundary_extension)
+    gabor = create_gabor(orientations, img_size_boundary_extension)
     output = prefilt(img, fc_prefilt)
     gist = gist_gabor(output, gabor, num_blocks, boundary_extension)
 
