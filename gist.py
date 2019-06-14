@@ -250,8 +250,10 @@ def gist(image_path, orientations = (8,8,8,8), num_blocks = 4, fc_prefilt = 4,
     if numpy.ndim(image_size) == 0:
         image_size = numpy.asarray((image_size, image_size))
 
-    # prepare image
-    img = _im_resize_crop(img, image_size, 'bilinear')
+    # prepare image - Make 256x256
+    if img.shape[0] != 256 and img.shape[1] != 256:
+        img = _im_resize_crop(img, image_size, 'bilinear')
+        
     img = img - img.min()
     img =   255. * img / img.max()
 
