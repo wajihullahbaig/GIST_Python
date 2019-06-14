@@ -41,8 +41,8 @@ def create_gabor(ori, img_size):
     param = numpy.delete(param, 0, 0)    #remove the first empty row
 
     #Frequencies
-    rng_x = range(-img_size[1]/2, img_size[1]/2)
-    rng_y = range(-img_size[0]/2, img_size[0]/2)
+    rng_x = range(-int(img_size[1]/2), int(img_size[1]/2))
+    rng_y = range(-int(img_size[0]/2), int(img_size[0]/2))   
     f_x, f_y = numpy.meshgrid(rng_x, rng_y)
     f_r = numpy.fft.fftshift(numpy.sqrt(numpy.power(f_x, 2) + numpy.power(f_y, 2)))
     f_t = numpy.fft.fftshift(numpy.angle(f_x + complex(0, 1) * f_y))
