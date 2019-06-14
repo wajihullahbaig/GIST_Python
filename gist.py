@@ -241,8 +241,9 @@ def gist(image_path, orientations = (8,8,8,8), num_blocks = 4, fc_prefilt = 4,
 
     img = Image.open(image_path)
     img = numpy.asarray(img, dtype = float)
-    img = img.mean(axis = 2)
-
+    if img.ndim > 2:
+        img = img.mean(axis = 2)
+    
     if image_size == None:
         image_size = numpy.asarray(img.shape)
 
